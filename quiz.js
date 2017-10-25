@@ -10,11 +10,11 @@
 //_.shuffle é o que faz o random, ele é realizado pela library Lodash (muito util em projetos js) Caso queira conhecer ela mais a fundo: https://lodash.com/docs/4.17.4
 //Sempre a questão correta vai ser o resultado 1
 var questions = _.shuffle([{
-    question: "Pergunta 1",
+    question: "Em qual local da Ásia o português é língua oficial?",
     choices: _.shuffle([
-        {choice: "Resposta 1", answer: 0},
-        {choice: "Resposta 2", answer: 1},
-        {choice: "Resposta 3", answer: 0}
+        {choice: "Portugal", answer: 0},
+        {choice: "Macau", answer: 1},
+        {choice: "Moçambique", answer: 0}
         ])
 },
 {
@@ -100,6 +100,8 @@ var quizOver = false;
 
 var numQuestions = questions.length - 5;
 
+var userAnswer = [];
+
 $(document).ready(function () {
 
     // Display the first question
@@ -120,6 +122,9 @@ $(document).ready(function () {
                 $(document).find(".quizMessage").text("Por favor escolha uma resposta.");
                 $(document).find(".quizMessage").show();
             } else {
+
+                userAnswer.push(questions[currentQuestion].choices[value].choice);
+
                 // TODO: Remove any message -> not sure if this is efficient to call this each time....
                 $(document).find(".quizMessage").hide();
 
@@ -162,7 +167,7 @@ function displayCurrentQuestion() {
     var numChoices = questions[currentQuestion].choices.length;
 
     // Set the questionClass text to the current question
-    $(questionClass).text(question);
+    $(questionClass).text((currentQuestion + 1) + '. ' + question);
 
     // Remove all current <li> elements (if any)
     $(choiceList).find("li").remove();
@@ -181,7 +186,7 @@ function startScreen() {
 	$(document).find(".nextButton").text("Próxima Pergunta");
 	resetQuiz();
     hideScore();
-    window.location.href = "teste.html";
+    window.location.href = "start.html";
 }
 
 
@@ -194,11 +199,15 @@ function resetQuiz() {
 
 function displayScore() {
 
+    console.log(userAnswer);
+
 	var feedback = $(document).find(".quizContainer > .result");
 
 	$(document).find(".question").hide();
 	$(document).find(".choiceList").hide();
     $(document).find(".quizContainer > .result").text("Você acertou " + correctAnswers + " de " + numQuestions);
+
+    $('<p>Suas Respostas foram: ' + userAnswer.join(', ') + '</p>').appendTo(feedback);
 
     if (correctAnswers >= 3) {
     	$('<p>Parabéns! <br> Você ganhou!</p>').appendTo(feedback);
