@@ -93,7 +93,6 @@ var questions = _.shuffle([{
 
 console.log(questions);
 
-
 var currentQuestion = 0;
 var correctAnswers = 0;
 var quizOver = false;
@@ -101,6 +100,10 @@ var quizOver = false;
 var numQuestions = questions.length - 5;
 
 var userAnswer = [];
+
+var currentQuestionText = [];
+
+var teste = [];
 
 $(document).ready(function () {
 
@@ -125,12 +128,17 @@ $(document).ready(function () {
 
                 userAnswer.push(questions[currentQuestion].choices[value].choice);
 
+                currentQuestionText.push(questions[currentQuestion].question);
+
+                teste.push(questions[currentQuestion].choices[value].answer);
+
                 // TODO: Remove any message -> not sure if this is efficient to call this each time....
                 $(document).find(".quizMessage").hide();
 
                 //Apenas comparo se o valor do key answer da pergunta escolhida é igual a um
                 if (questions[currentQuestion].choices[value].answer === 1) {
                     correctAnswers++;
+
                 }
 
                 currentQuestion++; // Since we have already displayed the first question on DOM ready
@@ -194,12 +202,19 @@ function resetQuiz() {
     location.reload();
     currentQuestion = 0;
     correctAnswers = 0;
+    userAnswer = [];
+    currentQuestionText = [];
     hideScore();
 }
+
 
 function displayScore() {
 
     console.log(userAnswer);
+
+    console.log(currentQuestionText);
+
+    console.log(teste);
 
 	var feedback = $(document).find(".quizContainer > .result");
 
@@ -207,12 +222,16 @@ function displayScore() {
 	$(document).find(".choiceList").hide();
     $(document).find(".quizContainer > .result").text("Você acertou " + correctAnswers + " de " + numQuestions);
 
-    $('<p>Suas Respostas foram: ' + userAnswer.join(', ') + '</p>').appendTo(feedback);
+    
 
     if (correctAnswers >= 3) {
     	$('<p>Parabéns! <br> Você ganhou!</p>').appendTo(feedback);
     } else {
     	$('<p>Que pena! <br> Não foi dessa vez!</p>').appendTo(feedback);
+    }
+
+    for (i = 0; i < userAnswer.length; i++) {
+        $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + '</p><br />').appendTo(".teste1");
     }
 
     $(document).find(".quizContainer > .result").show();
