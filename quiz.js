@@ -88,10 +88,88 @@ var questions = _.shuffle([{
         {choice: "12 horas", answer: 0},
         {choice: "8 minutos", answer: 1}
         ])
+},
+{
+    question: "Qual foi o recurso utilizado inicialmente pelo homem para explicar a origem das coisas?",
+    choices: _.shuffle([
+        {choice: "A Mitologia", answer: 1},
+        {choice: "A Filosofia", answer: 0},
+        {choice: "A Astronomia", answer: 0}
+        ])
+},
+{
+    question: "Qual o verdadeiro nome do Super Homem aqui na Terra?",
+    choices: _.shuffle([
+        {choice: "Clark Kent", answer: 1},
+        {choice: "Bruce Wayne", answer: 0},
+        {choice: "Peter Park", answer: 0}
+        ])
+},
+{
+    question: "Quantas estrelas existem no nosso Sistema Solar?",
+    choices: _.shuffle([
+        {choice: "Uma", answer: 1},
+        {choice: "Mais de um bilhão", answer: 0},
+        {choice: "Um Milhão", answer: 0}
+        ])
+},
+{
+    question: "Aproximadamente, quanto tempo leva o período de translação da Terra?",
+    choices: _.shuffle([
+        {choice: "Um ano", answer: 1},
+        {choice: "Um dia", answer: 0},
+        {choice: "Seis meses", answer: 0}
+        ])
+},
+{
+    question: "Em qual país fica a Torre Eiffel?",
+    choices: _.shuffle([
+        {choice: "França", answer: 1},
+        {choice: "Alemanha", answer: 0},
+        {choice: "Paris", answer: 0}
+        ])
+},
+{
+    question: "Qual é a capital da Austrália? ",
+    choices: _.shuffle([
+        {choice: "Camberra", answer: 1},
+        {choice: "Sydney", answer: 0},
+        {choice: "Melbourne", answer: 0}
+        ])
+},
+{
+    question: "Qual é a maior ave do mundo?",
+    choices: _.shuffle([
+        {choice: "Avestruz", answer: 1},
+        {choice: "Pavão", answer: 0},
+        {choice: "Gavião", answer: 0}
+        ])
+},
+{
+    question: "",
+    choices: _.shuffle([
+        {choice: "", answer: 1},
+        {choice: "", answer: 0},
+        {choice: "", answer: 0}
+        ])
+},
+{
+    question: "",
+    choices: _.shuffle([
+        {choice: "", answer: 1},
+        {choice: "", answer: 0},
+        {choice: "", answer: 0}
+        ])
+},
+{
+    question: "",
+    choices: _.shuffle([
+        {choice: "", answer: 1},
+        {choice: "", answer: 0},
+        {choice: "", answer: 0}
+        ])
 }
 ]);
-
-console.log(questions);
 
 var currentQuestion = 0;
 var correctAnswers = 0;
@@ -102,6 +180,8 @@ var numQuestions = questions.length - 5;
 var userAnswer = [];
 
 var currentQuestionText = [];
+
+var teste = [];
 
 $(document).ready(function () {
 
@@ -128,7 +208,7 @@ $(document).ready(function () {
 
                 currentQuestionText.push(questions[currentQuestion].question);
 
-                //teste.push(questions[currentQuestion].choices[value].answer);
+                teste.push(questions[currentQuestion].choices[value].answer);
 
                 // TODO: Remove any message -> not sure if this is efficient to call this each time....
                 $(document).find(".quizMessage").hide();
@@ -207,11 +287,11 @@ function resetQuiz() {
 
 function displayScore() {
 
-    console.log(userAnswer);
+    //console.log(userAnswer);
 
-    console.log(currentQuestionText);
+    //console.log(currentQuestionText);
 
-    //console.log(teste);
+    console.log("Teste: " + teste);
 
 	var feedback = $(document).find(".quizContainer > .result");
 
@@ -227,13 +307,39 @@ function displayScore() {
     	$('<p>Que pena! <br> Não foi dessa vez!</p>').appendTo(feedback);
     }
 
+    //console.log(questions[currentQuestion].choices[value].answer);
+
     for (i = 0; i < userAnswer.length; i++) {
         
-        if (questions[currentQuestion].choices[value].answer === 1) {
+        $('<p>Questão: '+questions[i].question+'</p>').appendTo('.teste1');
+        
+        var choices = questions[i].choices;
+        
+        for(choice in choices) {
+            
+            var estilo = "";
+            
+            if(choices[choice].answer === 1){
+                estilo = ' style="color: green;"';
+            }
+            
+            $('<p'+estilo+'> '+choices[choice].choice+'</p>').appendTo('.teste1');
+        }
+
+        if (teste[i] != 1) {
+                estiloUser = ' style="color: red;"';
+            } else {
+                estiloUser = ' style="color: green;"';
+            }
+
+            $('<p'+estiloUser+'>Resposta escolhida: ' + userAnswer[i] + '</p>').appendTo('.teste1');
+
+
+        /*if (questions[i].choices[value].answer === 1) {
             $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + ' &mdash; Certo!</p><br />').appendTo(".teste1");
         } else {
             $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + ' &mdash; Errado!</p><br />').appendTo(".teste1");
-        }
+        }*/
     }
 
     $(document).find(".quizContainer > .result").show();
