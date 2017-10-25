@@ -103,8 +103,6 @@ var userAnswer = [];
 
 var currentQuestionText = [];
 
-var teste = [];
-
 $(document).ready(function () {
 
     // Display the first question
@@ -130,7 +128,7 @@ $(document).ready(function () {
 
                 currentQuestionText.push(questions[currentQuestion].question);
 
-                teste.push(questions[currentQuestion].choices[value].answer);
+                //teste.push(questions[currentQuestion].choices[value].answer);
 
                 // TODO: Remove any message -> not sure if this is efficient to call this each time....
                 $(document).find(".quizMessage").hide();
@@ -138,7 +136,6 @@ $(document).ready(function () {
                 //Apenas comparo se o valor do key answer da pergunta escolhida é igual a um
                 if (questions[currentQuestion].choices[value].answer === 1) {
                     correctAnswers++;
-
                 }
 
                 currentQuestion++; // Since we have already displayed the first question on DOM ready
@@ -214,7 +211,7 @@ function displayScore() {
 
     console.log(currentQuestionText);
 
-    console.log(teste);
+    //console.log(teste);
 
 	var feedback = $(document).find(".quizContainer > .result");
 
@@ -231,7 +228,12 @@ function displayScore() {
     }
 
     for (i = 0; i < userAnswer.length; i++) {
-        $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + '</p><br />').appendTo(".teste1");
+        
+        if (questions[currentQuestion].choices[value].answer === 1) {
+            $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + ' &mdash; Certo!</p><br />').appendTo(".teste1");
+        } else {
+            $('<p>' + (i + 1) + '. ' + currentQuestionText[i] + '<br /><br />R: ' + userAnswer[i] + ' &mdash; Errado!</p><br />').appendTo(".teste1");
+        }
     }
 
     $(document).find(".quizContainer > .result").show();
