@@ -10,19 +10,19 @@
 //_.shuffle é o que faz o random, ele é realizado pela library Lodash (muito util em projetos js) Caso queira conhecer ela mais a fundo: https://lodash.com/docs/4.17.4
 //Sempre a questão correta vai ser o resultado 1
 var questions = _.shuffle([{
-    question: "Em qual local da Ásia o português é língua oficial?",
+    question: "Até quando vai a campanha Batalha dos Reinos?",
     choices: _.shuffle([
-        {choice: "Portugal", answer: 0},
-        {choice: "Macau", answer: 1},
+        {choice: "Portugal", answer: 1},
+        {choice: "Macau", answer: 0},
         {choice: "Moçambique", answer: 0}
         ])
 },
 {
     question: "Palmeiras tem mundial?",
     choices: _.shuffle([
-        {choice: "Sim", answer: 0},
+        {choice: "Sim", answer: 1},
         {choice: "Não", answer: 0},
-        {choice: "Palmeiras e mundial não combinam", answer: 1}
+        {choice: "Palmeiras e mundial não combinam", answer: 0}
         ])
 },
 {
@@ -36,8 +36,8 @@ var questions = _.shuffle([{
 {
     question: "Qual a capital dos EUA?",
     choices: _.shuffle([
-        {choice: "Buenos Aires", answer: 0},
-        {choice: "Washington DC.", answer: 1},
+        {choice: "Buenos Aires", answer: 1},
+        {choice: "Washington DC.", answer: 0},
         {choice: "Vancouver", answer: 0}
         ])
 },
@@ -52,17 +52,17 @@ var questions = _.shuffle([{
 {
     question: "Quem roeu a roupa do rei de roma?",
     choices: _.shuffle([
-        {choice: "O Castor", answer: 0},
+        {choice: "O Castor", answer: 1},
         {choice: "O Gato", answer: 0},
-        {choice: "O Rato", answer: 1}
+        {choice: "O Rato", answer: 0}
         ])
 },
 {
     question: "De quem é a famosa frase “Penso, logo existo”?",
     choices: _.shuffle([
-        {choice: "Platão", answer: 0},
+        {choice: "Platão", answer: 1},
         {choice: "Galileu Galilei", answer: 0},
-        {choice: "Descartes", answer: 1}
+        {choice: "Descartes", answer: 0}
         ])
 },
 {
@@ -76,17 +76,17 @@ var questions = _.shuffle([{
 {
     question: "Qual o livro mais vendido no mundo a seguir à Bíblia?",
     choices: _.shuffle([
-        {choice: "O Senhor dos Anéis", answer: 0},
-        {choice: "Dom Quixote", answer: 1},
+        {choice: "O Senhor dos Anéis", answer: 1},
+        {choice: "Dom Quixote", answer: 0},
         {choice: "O Pequeno Príncipe", answer: 0}
         ])
 },
 {
     question: "Quanto tempo a luz do Sol demora para chegar à Terra?",
     choices: _.shuffle([
-        {choice: "12 minutos", answer: 0},
+        {choice: "12 minutos", answer: 1},
         {choice: "12 horas", answer: 0},
-        {choice: "8 minutos", answer: 1}
+        {choice: "8 minutos", answer: 0}
         ])
 },
 {
@@ -146,27 +146,27 @@ var questions = _.shuffle([{
         ])
 },
 {
-    question: "",
+    question: "Em qual país o papel foi  inventado?",
     choices: _.shuffle([
-        {choice: "", answer: 1},
-        {choice: "", answer: 0},
-        {choice: "", answer: 0}
+        {choice: "China", answer: 1},
+        {choice: "Egito", answer: 0},
+        {choice: "Japão", answer: 0}
         ])
 },
 {
-    question: "",
+    question: "Que país inventou a pizza?",
     choices: _.shuffle([
-        {choice: "", answer: 1},
-        {choice: "", answer: 0},
-        {choice: "", answer: 0}
+        {choice: "Itália", answer: 1},
+        {choice: "França", answer: 0},
+        {choice: "Portugal", answer: 0}
         ])
 },
 {
-    question: "",
+    question: "Qual desses não faz parte das novas 7 maravilhas do mundo?",
     choices: _.shuffle([
-        {choice: "", answer: 1},
-        {choice: "", answer: 0},
-        {choice: "", answer: 0}
+        {choice: "Pirâmides de Gizé - Egito", answer: 1},
+        {choice: "Cristo Redentor - Rio de Janeiro", answer: 0},
+        {choice: "Coliseu - Roma", answer: 0}
         ])
 }
 ]);
@@ -175,7 +175,7 @@ var currentQuestion = 0;
 var correctAnswers = 0;
 var quizOver = false;
 
-var numQuestions = questions.length - 5;
+var numQuestions = questions.length - 15;
 
 var userAnswer = [];
 
@@ -321,6 +321,8 @@ function displayScore() {
             
             if(choices[choice].answer === 1){
                 estilo = ' style="color: green;"';
+            } else {
+                estilo = ' style="display: none;"'
             }
             
             $('<p'+estilo+'> '+choices[choice].choice+'</p>').appendTo('.teste1');
